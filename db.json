@@ -1,0 +1,29 @@
+{
+  "posts": [
+    {
+      "title": "learn Adonis JS ",
+      "body": "Learn adonis",
+      "id": 2
+    },
+    {
+      "title": "Formation Angular 8",
+      "body": "updated",
+      "id": 3
+    },
+    {
+      "title": "Learn Spring",
+      "body": "sdjdhd",
+      "id": 6
+    },
+    {
+      "title": "dhdhdhd",
+      "body": "sdfdfdfd",
+      "id": 7
+    },
+    {
+      "title": "dgdgffgfd",
+      "body": "dgdfgfdfffd",
+      "id": 8
+    }
+  ]
+}

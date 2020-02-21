@@ -1,0 +1,25 @@
+
+<div class="row ">
+    <div class="col-6 mx-auto">
+
+        <h1>List of courses</h1>
+        
+        <input [(ngModel)]="myCourse.label" class="form-control" type="text">
+
+        <button *ngIf="editable" (click)="updateCourse()" class="btn btn-warning btn-block my-2">Update course</button>
+        <button *ngIf="!editable" (click)="addCourse()" class="btn btn-primary btn-block my-2">Add course</button>
+
+
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let course of courses">
+                {{ course.label }}
+                <div class="text-right">
+                    <button (click)="editCourse(course)" class="btn btn-sm btn-warning mr-1">Edit</button>
+                    <button (click)="deleteCourse(course)" class="btn btn-sm btn-dark">Delete</button>
+                </div>
+               
+            </li>
+        </ul>
+
+    </div>
+</div>

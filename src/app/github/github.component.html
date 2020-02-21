@@ -1,0 +1,42 @@
+
+<div class="row my-3">
+    <div class="col-md-12">
+        <h1>List of Users</h1>
+    </div>
+</div>
+
+<div class="row my-2">
+    <div class="col-md-12">
+       
+        <input (keyup.enter)="searchUsers()" [(ngModel)]="search" placeholder="Search..." type="text" class="form-control">
+    </div>
+</div>
+
+
+<div *ngIf="loading; then waiting else result"></div>
+
+<ng-template #waiting>
+
+    <div class="row" >
+        <div class="col-md-12 text-center">
+            <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #result>
+
+    <div  class="row">
+        <div class="col-md-3 col-sm-6" *ngFor="let user of users">
+            
+            <app-one-user 
+               [login]="user.login" 
+               [avatar]="user.avatar_url" 
+               [link]="user.html_url">
+            </app-one-user>
+         
+        </div>
+    </div>
+</ng-template>

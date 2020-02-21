@@ -1,0 +1,111 @@
+<!-- 
+
+(.row>.col-md-12.my-3>h2{List of articles})+(.row>.col-md-6.mx-auto.my-3>(.form-group>label+input.form-control#title)+(.form-group>label+textarea.form-control#body)+button.btn.btn-block.btn-primary{Add article})+(.row>.col-md-12>table.table.table-striped>(thead>tr>th*3)+(tbody>tr>td*3)) -->
+ 
+
+<div class="row">
+    <div class="col-md-6 my-3">
+        <h2>List of articles</h2>
+    </div>
+    <div class="col-md-6 my-3 text-right">
+        <button 
+          (click)="displayForm()"  
+          class="btn btn-sm"
+          [ngClass]="{
+              'btn-success': !display,
+              'btn-dark': display
+          }"
+          >
+            <i [ngClass]="{
+                'fa-plus': !display,
+                'fa-minus': display
+            }" 
+            
+            class="fa "></i> {{ display ? 'Hide' : 'Show' }}
+        </button>
+    </div>
+</div>
+<div class="row" *ngIf="display">
+    <div class="col-md-6 mx-auto my-3">
+
+        <form #f="ngForm">
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input 
+               [(ngModel)]="article.title" 
+               type="text" 
+               class="form-control" 
+               id="title"
+               name="title"
+               required
+               minlength="3"
+               #myTitle="ngModel"
+               (change)="info(myTitle)"
+               autocomplete="off"
+            >
+
+            <div *ngIf="myTitle.invalid && myTitle.touched" class="alert alert-danger">
+                <div *ngIf="myTitle.errors.required">This field is required !</div>
+                <div *ngIf="myTitle.errors.minlength">This Field should be great than 3 caracters !</div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="body">Body</label>
+            <textarea 
+              [(ngModel)]="article.body" 
+              name="body" 
+              id="body" 
+              rows="4" 
+              class="form-control"
+              required
+              #myBody="ngModel"
+              (change)="info(myTitle)"
+              >
+            </textarea>
+            <div class="alert alert-danger" *ngIf="myBody.invalid && myBody.touched">
+                <div *ngIf="myBody.errors.required">
+                    This field is required !
+                </div>
+            </div>
+        </div>
+
+        
+
+        <button *ngIf="editable" [disabled]="f.invalid" (click)="updateArticle(f)" class="btn btn-block btn-warning">Update article</button>
+        <button *ngIf="!editable" [disabled]="f.invalid" (click)="persistArticle(f)" class="btn btn-block btn-primary">Add article</button>
+
+    </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let article of listArticles; index as i, first as f, last as l, odd as o, even as e">
+                    <td>
+                        index: {{ i }} - first: {{ f }} - odd: {{ o }} - even: {{ e }} - last: {{ l }}
+                        {{ article.title }}
+                    </td>
+                    <td>{{ article.body }}</td>
+                    <td nowrap>
+                        <button (click)="editArticle(article)" class="btn mr-1 btn-sm btn-warning">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button (click)="deleteArticle(article.id, i)" class="btn btn-sm btn-danger">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
